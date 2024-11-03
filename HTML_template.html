@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- название публикации -->
+    <title data-title="pageTitle">TITLE</title>
+
+    <!-- for GOOGLE ANALYTICS -->
+    <meta name="pageTitleGAEvents" content="TITLE" />
+    <script type="text/javascript">
+      const pageTitleGA = `${document.querySelector('meta[name="pageTitleGAEvents"]').content}`;
+      const pageTitle = `${document.querySelector('[data-title="pageTitle"]').textContent}`;
+    </script>
+
+    <!-- GOOGLE ANALYTICS (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=X-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      // здесь вместо X-XXXXXXXXXX - идентификатор потока данных счетчика GA4
+      gtag('js', new Date());
+      gtag('config', 'X-XXXXXXXXXX');
+
+      // здесь вместо __полный_адрес_страницы__ - актуальный полный адрес (включая домен) страницы на платформе doktornarabote.ru, например: https://www.doktornarabote.ru/publication/single/525432.
+      gtag('set', {
+        page_title: `${pageTitle}`,
+        page_location: '__полный_адрес_страницы__'
+      });
+    </script>
+
+    <!-- YANDEX METRIKA (YM) -->
+    <script>
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) return;
+        }
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+      // здесь вместо YYYYYYYY - номер счетчика
+      ym(YYYYYYYY, 'init', {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+      });
+    </script>
+
+    <!-- GOOGLE TAG MANAGER (GTM) -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        // здесь вместо GTM-GGGGGGGG идентификатор потока данных счетчика GTM
+      })(window, document, 'script', 'dataLayer', 'GTM-GGGGGGGG');
+    </script>
+
+    <!-- GOOGLE ANALYTICS SEND EVENTS FUNCTION -->
+    <script type="text/javascript">
+      const sendGTAG = (eventName, property, label) => {
+        let eventProperty = new Object();
+        eventProperty = { [property]: label };
+        if (
+          window.location.origin.includes('doktornarabote') ||
+          window.location.origin.includes('smartpharma')
+        ) {
+          if (typeof gtag === 'function') {
+            gtag('event', eventName, eventProperty);
+            // console.log('GA', eventName, eventProperty);
+          } else {
+            console.log(
+              '⛔️ Please define the Google Analytics function in the head tag of html file, function is NOT defined'
+            );
+          }
+        } else {
+          console.log('GA: localhost', 'event', eventName, eventProperty);
+        }
+      };
+    </script>
+
+    <!-- YANDEX METRIKA SEND EVENTS FUNCTION -->
+    <script type="text/javascript">
+      const sendYM = (label) => {
+        if (
+          window.location.origin.includes('doktornarabote') ||
+          window.location.origin.includes('smartpharma')
+        ) {
+          if (typeof ym === 'function') {
+            // здесь вместо YYYYYYYY - номер счетчика
+            ym(YYYYYYYY, 'reachGoal', label);
+            // console.log('YM', label);
+          } else {
+            console.log(
+              '⛔️ Please define the Yandex Metrika function in the head tag of html file, function is NOT defined'
+            );
+          }
+        } else {
+          console.log('YM: localhost', 'reachGoal', label);
+        }
+      };
+    </script>
+
+    <!-- GOOGLE ANALYTICS & YANDEX METRIKA - NOBOUNCE -->
+    <script type="text/javascript">
+      window.addEventListener('load', () => {
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_5sec'); sendYM('NoBounce_5sec')",
+          5000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_10sec'); sendYM('NoBounce_10sec')",
+          10000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_15sec'); sendYM('NoBounce_15sec')",
+          15000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_30sec'); sendYM('NoBounce_30sec')",
+          30000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_45sec'); sendYM('NoBounce_45sec')",
+          45000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_1min'); sendYM('NoBounce_1min')",
+          60000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_2min'); sendYM('NoBounce_2min')",
+          120000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_5min'); sendYM('NoBounce_5min')",
+          300000
+        );
+      });
+    </script>
+
+    <!-- GOOGLE ANALYTICS & YANDEX METRIKA - SCREENS VIEWS -->
+    <script type="text/javascript">
+      window.addEventListener('load', () => {
+        const slideObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(({ isIntersecting, target }) => {
+              if (!isIntersecting) return;
+              target.classList.add('_visited');
+              const eventName = `Screens_${pageTitleGA}`;
+              const property = `Screens_${pageTitleGA}`;
+              const label = `${target.id}`;
+              //GA4:
+              sendGTAG(eventName, property, label);
+              //YM:
+              sendYM(label);
+            });
+          },
+          { threshold: 0.1 }
+        );
+        const screens = document.querySelectorAll('[data-id="screensObserver"]');
+        screens.forEach((screen) => slideObserver.observe(screen));
+      });
+    </script>
+
+    <!-- main script -->
+    <script src="./scripts/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (GTM) -->
+    <!-- здесь вместо GTM-GGGGGGGG идентификатор потока данных счетчика GTM  -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-GGGGGGGG"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      >
+      </iframe>
+    </noscript>
+
+    <!-- YANDEX METRIKA -->
+    <!-- здесь вместо YYYYYYYY - номер счетчика -->
+    <noscript>
+      <div>
+        <img
+          src="https://mc.yandex.ru/watch/YYYYYYYY"
+          style="position: absolute; left: -9999px"
+          alt=""
+        />
+      </div>
+    </noscript>
+
+    <!-- main content -->
+    <div class="wrapper">
+      <section class="section _1" data-id="screensObserver" id="Screen_1">
+        <div class="section__content">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- GOOGLE ANALYTICS (GA4 + YM) VIDEO VIEWS -->
+    <script type="text/javascript">
+      window.addEventListener('load', () => {
+        (function (e) {
+          let matches =
+            e.matches ||
+            e.matchesSelector ||
+            e.webkitMatchesSelector ||
+            e.mozMatchesSelector ||
+            e.msMatchesSelector ||
+            e.oMatchesSelector;
+          !matches
+            ? (e.matches = e.matchesSelector =
+                function matches(selector) {
+                  let matches = document.querySelectorAll(selector);
+                  let th = this;
+                  return Array.prototype.some.call(matches, function (e) {
+                    return e === th;
+                  });
+                })
+            : (e.matches = e.matchesSelector = matches);
+        })(Element.prototype);
+
+        (function (e) {
+          e.closest =
+            e.closest ||
+            function (css) {
+              let node = this;
+              while (node) {
+                if (node.matches(css)) return node;
+                else node = node.parentElement;
+              }
+              return null;
+            };
+        })(Element.prototype);
+
+        const videos = document.querySelectorAll('video');
+
+        videos.forEach((video) => {
+          let timer = null;
+          let sec = 0;
+
+          video.addEventListener('play', () => {
+            currVideoStartTimer(video.id);
+          });
+
+          video.addEventListener('pause', () => {
+            stopTimer();
+          });
+
+          function currVideoStartTimer(videoId) {
+            const currentVideo = document.getElementById(videoId);
+            const durationReal = Math.floor(currentVideo.duration);
+            const duration = Number(durationReal - 10);
+            const eventName = `Video_${pageTitleGA}`;
+            const property = `Video_${pageTitleGA}`;
+            const label = currentVideo.dataset.label;
+            const kpi = Number(currentVideo.dataset.kpi);
+            timer = startTimer(eventName, property, label, duration, kpi);
+          }
+
+          function stopTimer() {
+            clearInterval(timer);
+          }
+
+          function startTimer(eventName, property, label, duration, kpi) {
+            return setInterval(() => {
+              const seconds = sec + 1;
+              const minutes = Math.floor(seconds / 60);
+
+              // YM:
+              switch (true) {
+                // START
+                case seconds === 1:
+                  sendYM(`${label} - start`);
+                  break;
+                // INTERVALS
+                case seconds === 15:
+                  sendYM(`${label} - 15s`);
+                  break;
+                case seconds === 30:
+                  sendYM(`${label} - 30s`);
+                  break;
+                case seconds === 60:
+                  sendYM(`${label} - 1m`);
+                  break;
+                case seconds === kpi:
+                  if (kpi >= 60) {
+                    if (kpi % 60 === 0) {
+                      sendYM(`${label}(KPI) - ${kpi / 60}m`);
+                    } else {
+                      sendYM(`${label}(KPI) - ${Math.floor(kpi / 60)}m ${kpi % 60}s`);
+                    }
+                  } else {
+                    sendYM(`${label}(KPI) - ${kpi}s`);
+                  }
+                  break;
+                // END
+                case seconds === duration:
+                  sendYM(`${label} - end`);
+                  break;
+              }
+
+              // GOOGLE ANALYTICS:
+              switch (true) {
+                case seconds === 1:
+                  sendGTAG(eventName, property, `${label} - start`);
+                  break;
+                case seconds > 0 && seconds < 30:
+                  if (seconds % 5 === 0) {
+                    sendGTAG(eventName, property, `${label} - ${seconds}s`);
+                  }
+                  break;
+                case seconds >= 30 && seconds < 60:
+                  if (seconds % 15 === 0) {
+                    sendGTAG(eventName, property, `${label} - ${seconds}s`);
+                  }
+                  break;
+                case seconds >= 60 && seconds < duration:
+                  if (seconds % 15 === 0) {
+                    switch (true) {
+                      case seconds - minutes * 60 !== 0:
+                        sendGTAG(
+                          eventName,
+                          property,
+                          `${label} - ${minutes}m ${seconds - minutes * 60}s`
+                        );
+                        break;
+                      default:
+                        sendGTAG(eventName, property, `${label} - ${minutes}m`);
+                        break;
+                    }
+                  }
+                  break;
+                case seconds === duration:
+                  sendGTAG(eventName, property, `${label} - end`);
+                  break;
+              }
+              sec++;
+            }, 1000);
+          }
+
+          // // RESET TIMER and SEC on all videos:
+          // if (document.querySelector('.startVideoButton')) {
+          //   const videoPreviews = document.querySelectorAll('.startVideoButton');
+          //   videoPreviews.forEach((preview) => {
+          //     preview.addEventListener('click', (e) => {
+          //       e.preventDefault();
+          //       e.stopPropagation();
+          //       videos.forEach((video) => {
+          //         clearInterval(timer);
+          //         timer = null;
+          //         sec = 0;
+          //       });
+          //     });
+          //   });
+          // }
+        });
+      });
+    </script>
+  </body>
+</html>
