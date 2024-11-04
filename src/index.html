@@ -18,12 +18,140 @@
       const pageTitle = `${document.querySelector('[data-title="pageTitle"]').textContent}`;
     </script>
 
+    <!-- GOOGLE ANALYTICS (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M11D2SLSV6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      // здесь вместо G-M11D2SLSV6 - идентификатор потока данных счетчика GA4
+      gtag('js', new Date());
+      gtag('config', 'G-M11D2SLSV6');
+
+      // здесь вместо __полный_адрес_страницы__ - актуальный полный адрес (включая домен) страницы на платформе doktornarabote.ru, например: https://www.doktornarabote.ru/publication/single/525432.
+      gtag('set', {
+        page_title: `${pageTitle}`,
+        page_location: '__полный_адрес_страницы__'
+      });
+    </script>
+
+    <!-- GOOGLE TAG MANAGER (GTM) -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        // здесь вместо GTM-NPJ72DMS идентификатор потока данных счетчика GTM
+      })(window, document, 'script', 'dataLayer', 'GTM-NPJ72DMS');
+    </script>
+
+    <!-- GOOGLE ANALYTICS SEND EVENTS FUNCTION -->
+    <script type="text/javascript">
+      const sendGTAG = (eventName, property, label) => {
+        let eventProperty = new Object();
+        eventProperty = { [property]: label };
+        if (
+          window.location.origin.includes('doktornarabote') ||
+          window.location.origin.includes('smartpharma')
+        ) {
+          if (typeof gtag === 'function') {
+            gtag('event', eventName, eventProperty);
+            // console.log('GA', eventName, eventProperty);
+          } else {
+            console.log(
+              '⛔️ Please define the Google Analytics function in the head tag of html file, function is NOT defined'
+            );
+          }
+        } else {
+          console.log('GA: localhost', 'event', eventName, eventProperty);
+        }
+      };
+    </script>
+
+     <!-- GOOGLE ANALYTICS & YANDEX METRIKA - NOBOUNCE -->
+     <script type="text/javascript">
+      window.addEventListener('load', () => {
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_5sec')",
+          5000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_10sec')",
+          10000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_15sec')",
+          15000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_30sec')",
+          30000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_45sec')",
+          45000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_1min')",
+          60000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_2min')",
+          120000
+        );
+        setTimeout(
+          "sendGTAG(`NoBounce_${pageTitleGA}`, `NoBounce_${pageTitleGA}`, 'NoBounce_5min')",
+          300000
+        );
+      });
+    </script>
+
+    <!-- GOOGLE ANALYTICS & YANDEX METRIKA - SCREENS VIEWS -->
+    <script type="text/javascript">
+      window.addEventListener('load', () => {
+        const slideObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(({ isIntersecting, target }) => {
+              if (!isIntersecting) return;
+              target.classList.add('_visited');
+              const eventName = `Screens_${pageTitleGA}`;
+              const property = `Screens_${pageTitleGA}`;
+              const label = `${target.id}`;
+              //GA4:
+              sendGTAG(eventName, property, label);
+            });
+          },
+          { threshold: 0.1 }
+        );
+        const screens = document.querySelectorAll('[data-id="screensObserver"]');
+        screens.forEach((screen) => slideObserver.observe(screen));
+      });
+    </script>
+
     <script src="./scripts/index.js" type="module"></script>
   </head>
 
   <body>
+    <!-- Google Tag Manager (GTM) -->
+    <!-- здесь вместо GTM-NPJ72DMS идентификатор потока данных счетчика GTM  -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NPJ72DMS"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      >
+      </iframe>
+    </noscript>
+
     <div class="wrapper">
-      <section class="section _1 mt48" data-id="screensObserver" id="Screen_1">
+      <section class="section _1 mt30" data-id="screensObserver" id="Screen_1">
         <div class="section__content">
           <div class="block">
             <div class="title-block mb36">
@@ -61,9 +189,10 @@
               </p>
               <div class="img-block">
                 <img src="./assets/images/ivan2.png" alt="ivan" />
-                <div class="button">
+                <a href="https://www.doktornarabote.ru/page/1002252" target="_blank" class="button" data-label="go_on_stage"
+                data-analytics="analytics">
                   <h4>На&nbsp;сцену</h4>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -182,7 +311,7 @@
         </div>
       </section>
 
-      <section class="section _5 mt64" data-id="screensObserver" id="Screen_5">
+      <section class="section _5 mt64 mb44" data-id="screensObserver" id="Screen_5">
         <div class="section__content">
           <div class="block">
             <h3 class="mb24">
@@ -227,21 +356,108 @@
               табс экспресс<sup>2</sup>:
             </h3>
 
+            <div class="schems-grid">
+              <div class="schems">
+                <div class="schem1">
+                  <h5 class="mb14 blue">Взрослые и&nbsp;дети старше 12&nbsp;лет<sup>2</sup>:</h5>
+                  <div class="flexCFS mb12">
+                    <img class="ico42" src="./assets/images/_4__icon7.svg" alt="icon7" />
+                    <h6>по&nbsp;1&nbsp;таблетке каждые 1&ndash;2 часа по&nbsp;необходимости</h6>
+                  </div>
+                  <div class="flexCFS">
+                    <img class="ico42" src="./assets/images/_4__icon8.svg" alt="icon8" />
+                    <h6>максимальная суточная доза&nbsp;&mdash; 8&nbsp;таблеток</h6>
+                  </div>
+                </div>
+                <div class="schem2">
+                  <h5 class="mb14 pink">Дети от 4 до 12 лет<sup>2</sup>:</h5>
+                  <div class="flexCFS mb12">
+                    <img class="ico42" src="./assets/images/_4__icon9.svg" alt="icon9" />
+                    <h6>по&nbsp;1&nbsp;таблетке каждые 1&ndash;2 часа по&nbsp;необходимости</h6>
+                  </div>
+                  <div class="flexCFS">
+                    <img class="ico42" src="./assets/images/_4__icon10.svg" alt="icon10" />
+                    <h6>максимальная суточная доза&nbsp;&mdash; 4&nbsp;таблетки</h6>
+                  </div>
+                </div>
+              </div>
 
+              <img class="pack" src="./assets/images/pack.png" alt="pack" />
+            </div>
+
+            <div class="recomm mt44">
+              <h6>Рекомендовано начинать прием препарата</h6>
+              <h3 class="h3_fs__26 mt4">
+                сразу после появления первых симптомов заболевания<sup>2</sup>
+              </h3>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section _6" data-id="screensObserver" id="Screen_6">
         <div class="section__content">
-          <div class="block"></div>
+          <div class="block">
+            <div class="bg1 mb44">
+              <h3 class="h3_fs__26 white mb14">Особенности боли в&nbsp;горле при масках ОРВИ</h3>
+              <p class="white">
+                в&nbsp;интерктивном познавательном формате можно изучить на&nbsp;портале.
+              </p>
+              <a href="https://www.doktornarabote.ru/page/1002252" target="_blank" class="button" data-label="watch"
+              data-analytics="analytics">
+                <h4>Смотреть</h4>
+              </a>
+            </div>
+
+            <div class="footer">
+              <p class="mb8"><b>Список сокращений:</b></p>
+              <p>ОРВИ&nbsp;&mdash; острая респираторная вирусная инфекция</p>
+              <p class="mt24 mb8"><b>Список литературы:</b></p>
+              <ul>
+                <li>
+                  Анготоева&nbsp;И.&nbsp;Б., Мушьян И.&nbsp;А. Боль в&nbsp;горле
+                  и&nbsp;ее&nbsp;причины. Российская
+                  оториноларингология.&nbsp;2019;18(3):17&mdash;21. https://doi.org/
+                  10.18692/1810-4800-2019-3-17-21
+                </li>
+                <li>
+                  Инструкция по&nbsp;применению лекарственного препарата Гексорал<sup class="reg"
+                    >&reg;</sup
+                  >
+                  табс экспресс ЛП-&#8470;(006099)-(РГ-RU) Государственный реестр лекарственных
+                  средств России. [Электронный ресурс]. &mdash;&nbsp;Режим доступа:
+                  <a
+                    target="_blank"
+                    href="https://grls.minzdrav.gov.ru/Grls_View_v2.aspx?routingGuid=90d11c97-79f7-49cf-82e6-f1b5ba4b03e0"
+                    >https://grls.minzdrav.gov.ru/Grls_View_v2.aspx?routingGuid=90d11c97-79f7-49cf-82e6-f1b5ba4b03e0</a
+                  >&nbsp;&mdash; свободный.
+                </li>
+                <li>
+                  Michel C, Salvatico S, Belkhelfa H, Haddioui L, Roques C. Activity
+                  of&nbsp;Drill<sup class="reg">&reg;</sup> lozenges on&nbsp;the main microorganisms
+                  responsible for upper respiratory tract infections. Eur Ann Otorhinolaryngol Head
+                  Neck Dis.&nbsp;2013 Sep;130(4):189-93. doi: 10.1016/j.anorl.2012.09.009. Epub 2013
+                  Jun&nbsp;6. PMID: 23747148.
+                </li>
+                <li>
+                  Клинические рекомендации МЗ&nbsp;РФ: Острые респираторные вирусные инфекции (ОРВИ)
+                  у&nbsp;взрослых. [Электронный ресурс]. &mdash;&nbsp;Режим доступа:
+                  <a target="_blank" href="https://cr.minzdrav.gov.ru/schema/724_1"
+                    >https://cr.minzdrav.gov.ru/schema/724_1</a
+                  >&nbsp;&mdash; свободный.
+                </li>
+              </ul>
+
+              <p class="mt16">RU-HXA-2024-71039</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
 
-    <script src="tools/jquery-3.6.3.min.js"></script>
+    <!-- <script src="tools/jquery-3.6.3.min.js"></script>
     <script src="tools/magnific-popup.min.js"></script>
-    <script src="tools/owl.carousel.min.js"></script>
+    <script src="tools/owl.carousel.min.js"></script> -->
   </body>
 </html>
 

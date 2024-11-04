@@ -19,11 +19,11 @@ export function analytics(btnAttribute) {
         }
 
         /* YM */
-        if (typeof ym === 'function') {
-          sendYM(label);
-        } else {
-          console.log('analytics.js: ym is NOT defined');
-        }
+        // if (typeof ym === 'function') {
+        //   sendYM(label);
+        // } else {
+        //   console.log('analytics.js: ym is NOT defined');
+        // }
       });
     });
   }

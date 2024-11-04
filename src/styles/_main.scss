@@ -3,7 +3,6 @@ body {
   align-items: center;
   justify-content: center;
   background-color: $clr-white;
-  background-color: rgba(128, 128, 128, 0.386);
 }
 .wrapper {
   padding: 0;
@@ -57,6 +56,10 @@ article {
     background-repeat: no-repeat;
   }
 }
+.ico42 {
+  @include adapt(width, 40, 42);
+  height: auto;
+}
 
 ._1 {
   .section__content {
@@ -107,10 +110,14 @@ article {
         background-image: url('../assets/images/bg1.jpg');
         @include adapt(margin-right, -20, -45);
         @include adapt(margin-left, -20, -45);
-        @include adaptMult(padding, 16 30, 20 45);
+        @include adaptMult(padding, 20 30, 20 45);
         padding-bottom: 0;
+        background-repeat: no-repeat;
+        background-position-x: center;
+
         p {
           max-width: 520px;
+          text-align: center;
         }
         .img-block {
           position: relative;
@@ -290,6 +297,57 @@ article {
           }
         }
       }
+      .schems-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.62fr;
+        align-items: center;
+        @include adapt(gap, 14, 20);
+        .schems {
+          div {
+            gap: 14px;
+          }
+          .schem1 {
+            background-color: $clr-light-blue;
+            border-radius: 10px;
+            @include adaptMult(padding, 16 22, 16 20);
+          }
+
+          .schem2 {
+            margin-top: 6px;
+            background-color: $clr-light-pink;
+            border-radius: 10px;
+            @include adaptMult(padding, 16 22, 16 20);
+          }
+        }
+        @media (max-width: 600px) {
+          grid-template-columns: 1fr;
+          .schems {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 6px;
+            div {
+              height: auto;
+            }
+            .schem2 {
+              margin-top: 0;
+            }
+          }
+          .pack {
+            margin: 0 auto;
+            max-width: 210px;
+            width: 95%;
+          }
+        }
+      }
+      .recomm {
+        background-color: $clr-gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include adaptMult(padding, 20 30, 16 24);
+        flex-direction: column;
+        border-radius: 10px;
+      }
     }
   }
 }
@@ -297,6 +355,32 @@ article {
 ._6 {
   .section__content {
     .block {
+      .bg1 {
+        background-image: url('../assets/images/bg2.png');
+        @include adapt(margin-right, -20, -45);
+        @include adapt(margin-left, -20, -45);
+        @include adaptMult(padding, 20 30, 20 45);
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        background-position-x: center;
+        background-position-y: center;
+        h3 {
+          max-width: 380px;
+          text-align: center;
+          align-self: center;
+        }
+        p {
+          max-width: 380px;
+          text-align: center;
+          align-self: center;
+        }
+        .button {
+          margin: 0 auto;
+          @include adapt(margin-top, 40, 200);
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 }
